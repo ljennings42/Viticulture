@@ -120,7 +120,7 @@ public class Driver extends JFrame implements ActionListener{
 	
   private void initUI() throws IOException {
 	  	
-        setSize(800, 600);
+        setSize(800, 547);
         setTitle("Viticulture Main Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -141,18 +141,7 @@ public class Driver extends JFrame implements ActionListener{
     }    
 
   private Panel initUI_Front() {
-	  Panel boardFront = new Panel(new FlowLayout());
-	  
-	  Panel sidePanel = new Panel(new FlowLayout());
-	  boardFront.add(sidePanel);
-	  sidePanel.setSize(800,200);
-	  
-	  Panel rightPanel = new Panel(new FlowLayout());
-	  rightPanel.setSize(800,400);
-	  
-	  Panel mainPanel = new Panel(new GridLayout(3,1));
-	  rightPanel.add(mainPanel);
-	  
+	  Panel boardFront = new Panel(new GridLayout(3,1));
 	//Deck Panel
       Panel deckPanel = new Panel(new GridLayout(2,4));
       
@@ -539,18 +528,18 @@ public class Driver extends JFrame implements ActionListener{
       act_win6_spots.add(btn_win6_spot3);
       
       //Bottom Panel
-      Panel handPanel = new Panel(new GridLayout(4,1));
+      Panel bottomPanel = new Panel(new GridLayout(4,1));
       
       //Player Scores
       JLabel lbl_scores = new JLabel("Player Scores: ");
-      handPanel.add(lbl_scores);
+      bottomPanel.add(lbl_scores);
       
       //Turn Order
       JLabel title_turnOrder = new JLabel("Turn Order");
-      //sidePanel.add(title_turnOrder);
+      bottomPanel.add(title_turnOrder);
       
       Panel orderPanel = new Panel(new GridLayout(1,7));
-      //handPanel.add(orderPanel);
+      bottomPanel.add(orderPanel);
       
       JButton btn_order1 = new JButton("1st");
       orderPanel.add(btn_order1);
@@ -577,14 +566,14 @@ public class Driver extends JFrame implements ActionListener{
       //Current Player info display
     
       Panel playerInfo = new Panel(new FlowLayout());
-      handPanel.add(playerInfo);
+      bottomPanel.add(playerInfo);
       
       lbl_playerInfo = new JLabel(playerArray[currentPlayer].toString());
       playerInfo.add(lbl_playerInfo);
      
-      mainPanel.add(deckPanel, BorderLayout.NORTH);
-      mainPanel.add(activityPanel, BorderLayout.CENTER);
-      mainPanel.add(handPanel, BorderLayout.SOUTH);
+      boardFront.add(deckPanel, BorderLayout.NORTH);
+      boardFront.add(activityPanel, BorderLayout.CENTER);
+      boardFront.add(bottomPanel, BorderLayout.SOUTH);
       
       return boardFront;
   }
@@ -908,7 +897,6 @@ public class Driver extends JFrame implements ActionListener{
 	  Panel hand = new Panel(new FlowLayout());
 	  BufferedImage myImage = ImageIO.read(new File("images/surveyer.jpg"));
      
-	  
       ImagePanel imagePanel = new ImagePanel(myImage);
      
 	
