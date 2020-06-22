@@ -121,11 +121,13 @@ public class Vine implements Card, Comparable<Card>{
 		return answer;
 	}
 
-	
-	
 	@Override
 	public int compareTo(Card card) {
 		
 		return this.compareTo(card);
+	}
+	
+	public String getName() {
+		return "vine";
 	}
 }

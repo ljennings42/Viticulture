@@ -115,7 +115,7 @@ public class Player {
 		grandeWorker = true;
 		tempWorker = false;
 		residualPayment = 0;
-		wakeUpPos = -1;
+		wakeUpPos = 0;
 		
 		String[] cardsGiven = mama.getCardsGiven();
 		for(int i = 0; i < cardsGiven.length; i++) {

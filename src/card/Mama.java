@@ -140,5 +140,8 @@ public class Mama implements Card {
 		return cardsGiven;
 	}
 
+	public String getName() {
+		return "Mama";
+	}
 	
 }

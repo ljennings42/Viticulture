@@ -206,4 +206,7 @@ public class Order implements Card, Comparable<Card>{
 		return this.compareTo(card);
 	}
 
+	public String getName() {
+		return "order";
+	}
 }

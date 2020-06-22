@@ -108,7 +108,7 @@ public class DriverTests {
 	@Test
 	public void testBroker() {
 		Summer surveyor = new Summer(1);
-		playerArr[1].addGold(9);
+	//	playerArr[1].addGold(9);
 		System.out.println(playerArr[1]);
 		//surveyor.playSummer(1, 1, playerArr);
 		System.out.println(playerArr[1]);
