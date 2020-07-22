@@ -1,4 +1,5 @@
 = Viticulture
+
 A Java implementation of the popular board game that focuses on worker management, + 
 monitoring your supply chain, and most importantly, growing wine! This program +
 allows two human players to play against each other. +
@@ -10,27 +11,32 @@ Download the rulebook here <https://app.box.com/s/c3u4rk2dg59jf7fp3b47amu97w0sw8
 3) Follow the directions in the console, alternating between player 1 and 2 
 
 == Overview of How to Play
+*How to Win*
 The first player to gain victory points wins. The primary way to gain victory points +
 is to fulfill orders for wine, which needs to be completed in the following sequence: +
 Summer : 1) plant one or more vines in one or more fields +
 Winter : 2) Harvest a field, 3) Make a wine, 4) fill an order
-[%hardbreaks]
+
+*Workers*
 Every action must be completed by a worker. Each player starts off 3, but can +
 train more workers in the winter season by paying 4 gold. Once you have placed +
 all your workers, no more actions can be taken. But you may save some or all of +
 your workers for a later season. 
-[%hardbreaks]
+
+*Wine Life Cycle*
 Wine must be planted in a field that has room for it. When wine is harvested, +
 wine tokens are placed in that player's crushpad. When a player makes wine, +
 wine tokens are moved from the crushpad to the cellar. At the end of each year, +
 all wine tokens "age" and increase in value by one.
-[%hardbreaks]
+
+*Visitor Cards*
 Visitor cards provide valuable bonuses such as victory points, gold, structures, +
 cards, and more. There are Summer Visitor Cards and Winter Visitor Cards, and +
 it takes one worker action to play a card during their respective season. +
 This feature is currently under development, so not all cards are currently +
 implemented. 
-[%hardbreaks]
+
+*Structures*
 Structures provide upgrades and bonuses. This feature is currently under development. +
 Not all structure's effects are currently implemented.
 
