@@ -1,8 +1,18 @@
 = Viticulture
-A Java implementation of the popular board game. +
-Learn more here <https://stonemaiergames.com/games/viticulture/essential-edition/> +
+A Java implementation of the popular board game that focuses on worker management, +
+strategy, and most importantly, growing wine! This program allows two human players +
+to play against each other. +
 Download the rulebook here <https://app.box.com/s/c3u4rk2dg59jf7fp3b47amu97w0sw8qi>
 
 == How to Run
 1) Go to Viticulture/src/old/ +
-2) run Driver.java
+2) Run Driver.java +
+3) Follow the directions in the console, alternating between player 1 and 2 
+
+== Overview of How to Play
+The first player to gain victory points wins. The primary way to gain victory points +
+is to fulfill orders for wine, which needs to be completed in the following sequence: +
+Summer : 1) plant one or more vines in one or more fields +
+Winter : 2) Harvest a field, 3) Make a wine, 4) fill an order +
+Every action must be completed by a worker. Each player starts off 3, but can +
+train more workers in the winter season.
