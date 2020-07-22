@@ -37,6 +37,10 @@ public class Player {
 	 */
 	private WineToken[] crushPadRed = new WineToken[9];
 	/**
+	 * Current highest value wine token in red crush pad.
+	 */
+	private int crushPadRedValue = 0;
+	/**
 	 * Each player has one red and one white crushpad, each with 9 slots that hold one WineToken. WineTokens
 	 * in the crushpad are considered "grape tokens" by the game rules.
 	 * Grapes can be sold from the crushpad; 1-3 sell for 1 gold. 4-6 sell for 2 gold. 7-9 sell for 3 gold.
@@ -44,10 +48,29 @@ public class Player {
 	 */
 	private WineToken[] crushPadWhite = new WineToken[9];
 	/**
-	 * Each player has a small, medium and large cellar. I'm not sure the best way to go about this yet,
-	 * for now I'm throwing all the WineTokens in an ArrayList
+	 * Current highest value wine token in white crush pad.
 	 */
-	private ArrayList<WineToken> cellar = new ArrayList<WineToken>();
+	private int crushPadWhiteValue = 0;
+	/**
+	 * Each player starts with a small cellar. 
+	 */
+	private WineToken[][] smallCellar = new WineToken[2][3];
+	private int cellarValRed = 0;
+	private int cellarValWhite = 0;
+	private int cellarValBlush = 0;
+	private int cellarValSparkling = 0;
+	/**
+	 * Each player can acquire a medium cellar. Medium cellar is needed for a large cellar.
+	 */
+	private WineToken[][] mediumCellar = new WineToken[3][3];
+	private boolean hasMediumCellar = false;
+	/**
+	 * Each player can acquire a large cellar. Medium cellar is needed for a large cellar.
+	 */
+	private WineToken[][] largeCellar = new WineToken[4][3];
+	private boolean hasLargeCellar = false;
+	
+	
 	/**
 	 * Tags this player to differentiate between other players. e.g. player 1 and player 2
 	 */
@@ -157,41 +180,27 @@ public class Player {
 		
 	}//end constructor
 	
-	//Player methods
-
+	//Player methods//
+	
+	//getters//
 	public int getGold() {return gold;}
-	
 	public int getTotalWorkers() {return totalWorkers;}
-	
-	
-	/**
-	 * returns totalWorkers - usedWorkers
-	 * @return
-	 */
 	public int getRemainingWorkers() { return totalWorkers - usedWorkers;}
-	
 	public boolean getGrande() {return grandeWorker;}
-	
 	public boolean getTurnDone() { return turnDone;}
-	
 	public int getWakeUpPos() {return wakeUpPos;}
-	
 	public int getID() { return playerId;}
-	
+	public int getVP() { return victoryPoints;}
 	public Field[] getAllFields() { return fields;}
-	
 	public Field getField(int field) { return fields[field];}
-	
 	public ArrayList<String> getStructures(){ return structuresList;}
-	
-	public ArrayList<WineToken> getCellar(){return cellar;}
-	
 	public WineToken[] getCrushPadRed(){return crushPadRed;}
-	
 	public WineToken[] getCrushPadWhite(){return crushPadWhite;}
-	
 	public ArrayList<Card> getHand(){return hand;}
 	
+	//Setters
+	public void setWakeUpPos(int pos) {wakeUpPos = pos;}
+	public void setVP(int victoryPoints) {this.victoryPoints = victoryPoints;}
 	/**
 	 * Player side of harvesting a given field. First it gets the harvest from a player's
 	 * field by calling the field's harvestField() method. This creates a WineToken[]
@@ -237,6 +246,33 @@ public class Player {
 		}
 	}
 	/**
+	 * if there is at least one wine token in the red or white crush pad, or in
+	 * any of the cellars, then discard the one of least value.
+	 */
+	public boolean discardWineToken() {
+		if(crushPadRedValue > 0){
+			crushPadRed[crushPadRedValue - 1] = null;
+			System.out.printf("Discarded a %d value wine token from the Red Crush Pad.\n", crushPadRedValue);
+			crushPadRedValue--;
+			return true;
+		}else if(crushPadWhiteValue > 0) {
+			crushPadWhite[crushPadWhiteValue - 1] = null;
+			System.out.printf("Discarded a %d value wine token from the White Crush Pad.\n", crushPadWhiteValue);
+			crushPadWhiteValue--;
+			return true;
+		}else if(cellarValRed > 0) {
+			if(cellarValRed <= 3) {
+				smallCellar[0][cellarValRed - 1] = null;
+				System.out.printf("Discarded a %d value wine token from the small cellar.\n", crushPadRedValue);
+			}
+
+			
+		}else {
+			//there are no wine tokens to discard
+			return false;
+		}
+	}
+	/**
 	 * Given an index of a field (0,1, or 2; remember a player has 3 fields),
 	 * and a vine card, call that field's plantVine method, and also discard said vine.
 	 * @param field
@@ -277,6 +313,12 @@ public class Player {
 				crushPadWhite[i].age();
 			}
 		}
+		if(crushPadRedValue > 0) {
+			crushPadRedValue++;
+		}
+		if(crushPadWhiteValue > 0) {
+			crushPadWhiteValue++;
+		}
 	}
 	
 	public void sellGrape(String crushPad, int grapeVal) {
@@ -289,8 +331,28 @@ public class Player {
 		}
 		if(crushPad.equals("r")) {
 			crushPadRed[grapeVal - 1] = null;
+			if(grapeVal == crushPadRedValue) {
+				//need to update new max value of red crush pad
+				int tempMax = 0;
+				for(int i = 0; i < 9; i++) {
+					if(crushPadRed[i] != null) {
+						tempMax = i + 1;
+					}
+				}
+				crushPadRedValue = tempMax;
+			}
 		}else {
 			crushPadWhite[grapeVal - 1] = null;
+			if(grapeVal == crushPadWhiteValue) {
+				//need to update new max value of white crush pad
+				int tempMax = 0;
+				for(int i = 0; i < 9; i++) {
+					if(crushPadWhite[i] != null) {
+						tempMax = i + 1;
+					}
+				}
+				crushPadWhiteValue = tempMax;
+			}
 		}
 	}
 	
@@ -328,8 +390,7 @@ public class Player {
 		gold -= structure.getCost();
 		
 	}
-
-	public void setWakeUpPos(int pos) {wakeUpPos = pos;}
+	
 	
 	public void updateGold(int gold) {this.gold += gold;}
 	

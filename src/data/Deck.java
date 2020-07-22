@@ -105,7 +105,7 @@ public class Deck {
 			break;
 		}
 		
-		shuffle();
+		/* shuffle(); */
 	}
 	/**
 	 * Shuffles the deck using Collections.shuffle()

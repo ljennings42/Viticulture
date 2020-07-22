@@ -67,58 +67,84 @@ public class Summer implements Card, Comparable<Card>{
 
 	/**
 	 * Handles the majority of the card logic. Each card has their own rule set and
-	 * can affect various game components.
-	 * @param selection
+	 * can affect various game components. Each card has two options, action_selection
+	 * represents which option the player chose. If the player does not have the
+	 * resources to complete the chosen action, playSummer returns false. Otherwise
+	 * return true.
+	 * @param action_selection
 	 * @param currentPlayer
 	 * @param playerArr
 	 * @param deckArr
 	 */
-	public void playSummer(int selection, int currentPlayer, Player[] playerArr, Deck[] deckArr) {
+	public boolean playSummer(int action_selection, int currentPlayer, Player[] playerArr, Deck[] deckArr) {
 		
-		switch(name) {
-		case "Surveyor" :
+		if(name.equals("Surveyor")){
 			//"Gain 2 gold for each empty field you own OR gain 1 VP for each planted field you own"
-			int emptyFields = 0;
+			int num_emptyFields = 0;
 			for(int i = 0; i < 3; i++) {
 				if(playerArr[currentPlayer].getField(i).isEmpty()) {
-					emptyFields++;
+					num_emptyFields++;
 				}
 			}
-			if(selection == 1) {
-				playerArr[currentPlayer].updateGold(2*emptyFields);
+			if(action_selection == 1) {
+				playerArr[currentPlayer].updateGold(2 * num_emptyFields);
+				System.out.printf("You gained %d Gold.\n", 2 * num_emptyFields);
 			}else {
-				playerArr[currentPlayer].updateVP(3 - emptyFields);
+				playerArr[currentPlayer].updateVP(3 - num_emptyFields);
+				System.out.printf("You gained %d Victory Points.\n", 3 - num_emptyFields);
 			}
-			break;
-		case "Broker" :
+			return true;
+		}else if(name.equals("Broker")) {
 			//	"Pay 9 gold to gain 3 VP OR lose 2 VP to gain 6 gold", 
-			if(selection == 1) {
+			//Option 1
+			if(action_selection == 1) {
 				if(playerArr[currentPlayer].getGold() >= 9) {
 					playerArr[currentPlayer].updateGold(-9);
 					playerArr[currentPlayer].updateVP(3);
+					System.out.println("You payed 9 Gold and gained 3 Victory Points");
+					return true;
 				}else {
-					System.out.println("not enough gold, cant use Broker");
+					System.out.println("not enough Gold, cant use this option.");
+					return false;
 				}
+			//Option 2
 			}else {
-				playerArr[currentPlayer].updateGold(6);
-				playerArr[currentPlayer].updateVP(-2);
+				if(playerArr[currentPlayer].getVP() >= 2) {
+					playerArr[currentPlayer].updateGold(6);
+					playerArr[currentPlayer].updateVP(-2);
+					System.out.println("You payed 2 Victory Points and gained 6 Gold");
+					return true;
+				}else {
+					System.out.println("Not enough Victory Points, can't use this option.");
+					return false;
+				}
 			}
-		case "Entertainer" :
+		}else if(name.equals("Entertainer")) {
 			//"Pay 4 gold to draw 3 winter cards OR discard 1 wine token and 3 visitor cards to gain 3 VP"
-			if(selection == 1) {
+			//Option 1
+			if(action_selection == 1) {
 				//Deck[] deckArr = {grapeDeck, summerDeck, orderDeck, winterDeck};
 				if(playerArr[currentPlayer].getGold() >= 4) {
 					playerArr[currentPlayer].updateGold(-4);
 					playerArr[currentPlayer].draw(deckArr[3]);
 					playerArr[currentPlayer].draw(deckArr[3]);
 					playerArr[currentPlayer].draw(deckArr[3]);
+					return true;
 				}else {
-					System.out.println("not enough gold, cant use Entertainer");
+					System.out.println("Not enough Gold, cant use this option.");
+					return false;
 				}
+			//Option 2
 			}else {
 				//check that player has at least 1 wine token in cellar or crushpad
-				//if(playerArr[currentPlayer].getCellar().size() > 0 || playerArr[currentPlayer].getCrushPad().size() > 0){
-				//playerArr[currentPlayer].
+				if(playerArr[currentPlayer].getCellar().size() > 0 || 
+						playerArr[currentPlayer].getCrushPadRed().length > 0 ||
+						playerArr[currentPlayer].getCrushPadWhite().length > 0 ){
+	
+				}else {
+					System.out.println("Need at least one wine token in crushpad, can't use this option.");
+					return false;
+				}
 			}
 			
 		default :

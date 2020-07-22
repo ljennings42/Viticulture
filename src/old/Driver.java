@@ -59,6 +59,8 @@ public class Driver {
 		Deck[] deckArr = {vineDeck, summerDeck, orderDeck, winterDeck};
 		
 		Scanner scanner = new Scanner(System.in);
+		String divider = "............................................................"
+				+ "............................................................" ;
 		int inputInt;
 		String inputString;
 		boolean gameLoop = true;
@@ -137,8 +139,7 @@ public class Driver {
 			
 			switch(currentSeason) {
 			case 1 :
-				System.out.println("............................................................"
-						+ "............................................................");
+				System.out.println(divider);
 				System.out.println("SPRING" );
 				System.out.println(playerArr[currentPlayer - 1]);
 				System.out.println("Place your wake up token");
@@ -224,8 +225,6 @@ public class Driver {
 					}
 					currentSeason++;
 				}
-				System.out.println("............................................................"
-						+ "............................................................");
 				break;
 			////////////////////////////////////////////////////////////////////	
 			case 2 :
@@ -288,7 +287,7 @@ public class Driver {
 							//check for wine cellar bonus
 							if(playerArr[currentPlayer - 1].getStructures().contains("Tasting Room")) {
 								//if player has at least one wine token in cellar
-								if(playerArr[currentPlayer - 1].getCellar().size() > 0) {
+								if(playerArr[currentPlayer - 1].getCellarValue().size() > 0) {
 									System.out.println("You get 1 VP from Tasting Room");
 									playerArr[currentPlayer - 1].updateVP(1);
 								}
@@ -342,6 +341,10 @@ public class Driver {
 						case 4 :
 							//check if there are any visitor cards to play
 							counter = 0;
+							int card_selection = 0;
+							int action_selection = 0;
+							Summer chosenSummerCard;
+							Summer[] summerCards;
 							for(Card c : playerArr[currentPlayer - 1].getHand()) {
 								//System.out.println(c.toString());
 								//System.out.println(c instanceof Card);
@@ -350,17 +353,36 @@ public class Driver {
 									counter++;
 								}
 							}
+							//display only summer visitor cards
 							System.out.println("Number of summer cards: " + counter);
+							summerCards= new Summer[counter];
 							if(counter > 0 ) {
 								System.out.println("Choose a Summer Visitor Card to play");
 								counter = 1;
 								for(Card c : playerArr[currentPlayer - 1].getHand()) {
 									if(c instanceof Summer) {
 										System.out.println(counter + " - " + c.toString());
+										//populate smaller array of only summer cards to chose from
+										summerCards[counter - 1] = (Summer)c;
 										counter++;
 									}
 								}
-								System.out.println("You played a Summer Visitor Card");
+								//Validate input for card selection
+								while(card_selection < 1 || card_selection > counter) {
+									card_selection = scanner.nextInt();
+
+									if(card_selection < 1 || card_selection > counter) {
+										System.out.println("Please select a valid card");
+									}
+								}
+								//get actual summer card to use
+								chosenSummerCard = summerCards[card_selection-1];
+								//if card has options, (they usually do) display their choices
+								System.out.println("Choose 1 or 2 for the cards' actions.");
+								action_selection = scanner.nextInt();
+								//execute the card's effects
+								chosenSummerCard.playSummer(action_selection, currentPlayer, playerArr, deckArr);
+								
 							}else {
 								System.out.println("You don't have any Summer Visitor Cards");
 							}
