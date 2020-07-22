@@ -287,7 +287,7 @@ public class Driver {
 							//check for wine cellar bonus
 							if(playerArr[currentPlayer - 1].getStructures().contains("Tasting Room")) {
 								//if player has at least one wine token in cellar
-								if(playerArr[currentPlayer - 1].getCellarValue().size() > 0) {
+								if(playerArr[currentPlayer - 1].getCellarValue() > 0) {
 									System.out.println("You get 1 VP from Tasting Room");
 									playerArr[currentPlayer - 1].updateVP(1);
 								}
@@ -620,11 +620,31 @@ public class Driver {
 			case 4 :
 				System.out.println("WINTER" );
 				System.out.println(playerArr[currentPlayer - 1]);
+				System.out.println(playerArr[currentPlayer - 1].printHand());
 				System.out.println("Place a worker on a winter action space");
-				int inputWinter = scanner.nextInt();
-				
-				
-				
+				System.out.println("p - Pass turn; forego placing any more workers");
+				int winterSpot;
+				inputString = scanner.next();
+				while(inputString.equals("w") == false && inputString.equals("p") == false) {
+					System.out.println("invalid input. Please enter \"w\" or \"p\"");
+					inputString = scanner.next();
+				}
+				if(inputString.equals("p")) {
+					System.out.println("Player " + currentPlayer + " passes");
+					playerArr[currentPlayer - 1].setTurnDone();
+				}else if(inputString.equals("w")){
+					//check that player has enough workers to continue
+					if(playerArr[currentPlayer - 1].getRemainingWorkers() > 0 || playerArr[currentPlayer - 1].getGrande()) {
+						System.out.println("Choose an unoccupied space. Or use a Grande worker"
+								+ " on an occupied space");
+						for(int i = 0; i < 6; i++) {
+							System.out.println((i+1) + " - " + winterSpots[i]);
+						}
+						//inputInt = scanner.nextInt();
+						summerSpot = scanner.nextInt();
+						boolean usedGrande = false;
+					}
+				}
 				//swap players
 				if(currentPlayer == 1) {
 					playerArr[0].setTurnDone();

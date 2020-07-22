@@ -137,7 +137,7 @@ public class Summer implements Card, Comparable<Card>{
 			//Option 2
 			}else {
 				//check that player has at least 1 wine token in cellar or crushpad
-				if(playerArr[currentPlayer].getCellar().size() > 0 || 
+				if(playerArr[currentPlayer].getCellarValue() > 0 || 
 						playerArr[currentPlayer].getCrushPadRed().length > 0 ||
 						playerArr[currentPlayer].getCrushPadWhite().length > 0 ){
 	
@@ -147,10 +147,10 @@ public class Summer implements Card, Comparable<Card>{
 				}
 			}
 			
-		default :
-			System.out.println("Unimplemented summer card");
-			break;
 		}
+			System.out.println("Unimplemented summer card");
+			return true;
+		
 	}
 	
 	@Override

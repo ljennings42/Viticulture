@@ -267,10 +267,10 @@ public class Player {
 			}
 
 			
-		}else {
-			//there are no wine tokens to discard
-			return false;
 		}
+		//there are no wine tokens to discard
+		return false;
+		
 	}
 	/**
 	 * Given an index of a field (0,1, or 2; remember a player has 3 fields),
@@ -501,5 +501,10 @@ public class Player {
 			answer += fields[i].toString();
 		}
 		return answer;
+	}
+
+	public int getCellarValue() {
+		// get the highest value wine token in the cellar
+		return 1;
 	}
 }
