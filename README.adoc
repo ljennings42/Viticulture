@@ -1,5 +1,8 @@
 = Viticulture
-A Java implementation of the popular board game <link to game site>
+A Java implementation of the popular board game. 
+Learn more here <https://stonemaiergames.com/games/viticulture/essential-edition/>
+Download the rulebook here <https://app.box.com/s/c3u4rk2dg59jf7fp3b47amu97w0sw8qi>
 
 == How to Run
-Some instructions on how to run it
+1) Go to Viticulture/src/old/
+2) run Driver.java
