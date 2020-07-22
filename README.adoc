@@ -17,13 +17,14 @@ The first player to gain 20 victory points wins. The primary way to gain victory
 is to fulfill orders for wine, which needs to be completed in the following sequence: +
     Summer: 1) plant one or more vines in one or more fields +
     Winter: 2) Harvest a field, 3) Make a wine, 4) fill an order
+
 *Seasons* +
 Spring: Players choose their starting locations. Player first is an advantage, +
-so later starting positions have more bonuses.
-Summer: Players can place their workers on Summer action spots
-Fall: Players can choose either a summer or a winter visitor card
-Winter: Players can place their workers on Winter action spots
-Year End: Players gain income, and check for victory conditions
+so later starting positions have more bonuses. +
+Summer: Players can place their workers on Summer action spots+
+Fall: Players can choose either a summer or a winter visitor card+
+Winter: Players can place their workers on Winter action spots+
+Year End: Players gain income, and check for victory conditions+
 
 *Workers* +
 Every action must be completed by a worker. Each player starts off 3, but can +
